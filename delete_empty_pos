@@ -1,0 +1,8 @@
+select purchase_order.id, purchase_order.state, name, purchase_order.create_time
+from acq.purchase_order
+left join acq.lineitem on acq.purchase_order.id=acq.lineitem.purchase_order
+left join acq.po_item on acq.purchase_order.id=acq.po_item.purchase_order
+where acq.lineitem.id is NULL
+and acq.purchase_order.state='pending'
+and acq.po_item.id is NULL
+and acq.purchase_order.name ilike '%delete%';
